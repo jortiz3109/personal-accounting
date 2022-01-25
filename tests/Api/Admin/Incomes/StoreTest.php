@@ -29,8 +29,8 @@ class StoreTest extends TestCase
 
         $response = $this->postJson('/api/admin/incomes', $data);
 
-        $response->assertJson(fn(AssertableJson $json) =>
-        $json->has('data.id')
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('data.id')
             ->has('data.is_disabled')
             ->where('data.name', $data['name'])
             ->where('data.description', $data['description'])
@@ -50,6 +50,5 @@ class StoreTest extends TestCase
 
         $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
         $response->assertJsonValidationErrorFor($field);
-
     }
 }

@@ -15,6 +15,6 @@ class Criteria implements Stringable
 
     public function __toString(): string
     {
-        return is_array($this->value) ? implode(',', $this->value) : (string) $this->value;
+        return is_array($this->value) ? implode(',', $this->value) : (string)$this->value;
     }
 }

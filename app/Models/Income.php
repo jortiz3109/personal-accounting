@@ -38,7 +38,7 @@ class Income extends Model
 
     public function isEnabled(): bool
     {
-        return !!$this->isDisabled();
+        return (bool)$this->isDisabled();
     }
 
     public function isDisabled(): bool
