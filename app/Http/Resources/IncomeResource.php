@@ -16,6 +16,7 @@ class IncomeResource extends JsonResource
     public function toArray($request): array
     {
         return [
+            'id' => $this->getRouteKey(),
             'name' => $this->name(),
             'description' => $this->description(),
             'is_disabled' => $this->isDisabled(),

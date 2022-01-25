@@ -7,6 +7,7 @@ use App\Http\Resources\IncomeCollection;
 use App\Models\Income;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\ResourceResponse;
 
 class IncomeController extends Controller
 {
@@ -27,13 +28,7 @@ class IncomeController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(Income $income): ResourceResponse
     {
         //
     }

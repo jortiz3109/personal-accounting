@@ -22,7 +22,7 @@ class IndexTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
         $response->assertJson(fn(AssertableJson $json) => $json->has('incomes', 1)
             ->has('incomes.0',
-                fn(AssertableJson $json) => $json->hasAll(['name', 'description', 'is_disabled', 'created_at'])
+                fn(AssertableJson $json) => $json->hasAll(['id', 'name', 'description', 'is_disabled', 'created_at'])
             )
             ->etc()
         );
@@ -46,6 +46,7 @@ class IndexTest extends TestCase
                         ->where('description', $income->description())
                         ->where('is_disabled', $income->isDisabled())
                         ->where('created_at', $income->createdAt()->toDateTimeString())
+                        ->etc()
             )
             ->etc()
         );
@@ -66,6 +67,7 @@ class IndexTest extends TestCase
                     ->where('description', $income->description())
                     ->where('is_disabled', $income->isDisabled())
                     ->where('created_at', $income->createdAt()->toDateTimeString())
+                    ->etc()
             )
             ->etc()
         );
