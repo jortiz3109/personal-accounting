@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -16,7 +15,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3', 'max:50'],
-            'description' => ['required', 'string', 'min:10', 'max:255']
+            'description' => ['required', 'string', 'min:10', 'max:255'],
         ];
     }
 }

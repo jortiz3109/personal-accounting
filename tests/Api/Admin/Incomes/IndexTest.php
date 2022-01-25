@@ -20,9 +20,11 @@ class IndexTest extends TestCase
         $response = $this->getJson('api/admin/incomes');
 
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertJson(fn(AssertableJson $json) => $json->has('incomes', 1)
-            ->has('incomes.0',
-                fn(AssertableJson $json) => $json->hasAll(['id', 'name', 'description', 'is_disabled', 'created_at'])
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('incomes', 1)
+            ->has(
+                'incomes.0',
+                fn (AssertableJson $json) => $json->hasAll(['id', 'name', 'description', 'is_disabled', 'created_at'])
             )
             ->etc()
         );
@@ -38,16 +40,16 @@ class IndexTest extends TestCase
 
         $response = $this->getJson('api/admin/incomes?' . http_build_query($params));
 
-        $response->assertJson(fn(AssertableJson $json) =>
-        $json->has('incomes', 1)
-             ->has('incomes.0',
-                fn(AssertableJson $json) =>
-                    $json->where('name', $income->name())
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('incomes', 1)
+             ->has(
+                 'incomes.0',
+                 fn (AssertableJson $json) => $json->where('name', $income->name())
                         ->where('description', $income->description())
                         ->where('is_disabled', $income->isDisabled())
                         ->where('created_at', $income->createdAt()->toDateTimeString())
                         ->etc()
-            )
+             )
             ->etc()
         );
     }
@@ -59,11 +61,11 @@ class IndexTest extends TestCase
 
         $response = $this->getJson('api/admin/incomes?page=2');
 
-        $response->assertJson(fn(AssertableJson $json) =>
-        $json->has('incomes', 1)
-            ->has('incomes.0',
-                fn(AssertableJson $json) =>
-                $json->where('name', $income->name())
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->has('incomes', 1)
+            ->has(
+                'incomes.0',
+                fn (AssertableJson $json) => $json->where('name', $income->name())
                     ->where('description', $income->description())
                     ->where('is_disabled', $income->isDisabled())
                     ->where('created_at', $income->createdAt()->toDateTimeString())
@@ -82,7 +84,7 @@ class IndexTest extends TestCase
         ];
 
         return [
-            'it can filter by name' => [ 'income' => $income, 'params' => ['filters' => ['name' => 'salary']]],
+            'it can filter by name' => ['income' => $income, 'params' => ['filters' => ['name' => 'salary']]],
             //'it can filter by description' => [ 'income' => $income, 'params' => ['filters' => ['description' => 'payment']]],
         ];
     }

@@ -4,5 +4,5 @@ namespace App\Filters\Contracts;
 
 interface HasJoinsContract
 {
-    public function joins(): HasJoinsContract;
+    public function joins(): self;
 }

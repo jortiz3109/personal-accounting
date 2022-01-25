@@ -8,5 +8,5 @@ interface ActionContract
 {
     public function execute(array $data): Model|bool;
 
-    public function for(Model $model): ActionContract;
+    public function for(Model $model): self;
 }

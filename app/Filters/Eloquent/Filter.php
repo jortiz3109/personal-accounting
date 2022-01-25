@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Filters\Eloquent
-;
+namespace App\Filters\Eloquent;
 
 use App\Filters\Condition;
 use App\Filters\Contracts\EloquentFilterContract;

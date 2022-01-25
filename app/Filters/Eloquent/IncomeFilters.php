@@ -11,7 +11,7 @@ class IncomeFilters extends Filter
     protected function applicableConditions(): array
     {
         return [
-            'name' => Name::class
+            'name' => Name::class,
         ];
     }
 }

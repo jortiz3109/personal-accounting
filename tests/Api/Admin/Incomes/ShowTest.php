@@ -19,8 +19,8 @@ class ShowTest extends TestCase
         $response = $this->getJson('/api/admin/incomes/' . $income->getRouteKey());
 
         $response->assertStatus(Response::HTTP_OK);
-        $response->assertJson(fn(AssertableJson $json) =>
-            $json->where('data.id', $income->getRouteKey())
+        $response->assertJson(
+            fn (AssertableJson $json) => $json->where('data.id', $income->getRouteKey())
                 ->where('data.name', $income->name())
                 ->where('data.description', $income->description())
                 ->where('data.is_disabled', $income->isDisabled())
