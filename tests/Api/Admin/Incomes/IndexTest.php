@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api\Admin\Incomes;
+namespace Tests\Api\Admin\Incomes;
 
 use App\Models\Income;
 use Carbon\Carbon;
