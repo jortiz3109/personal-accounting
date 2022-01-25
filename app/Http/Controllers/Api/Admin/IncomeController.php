@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\IncomeCollection;
+use App\Http\Resources\IncomeResource;
 use App\Models\Income;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Http\Resources\Json\ResourceResponse;
 
 class IncomeController extends Controller
 {
@@ -28,9 +29,9 @@ class IncomeController extends Controller
         //
     }
 
-    public function show(Income $income): ResourceResponse
+    public function show(Income $income): JsonResource
     {
-        //
+        return new IncomeResource($income);
     }
 
     /**
