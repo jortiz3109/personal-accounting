@@ -24,11 +24,6 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Verify MySQL connection
-        run: |
-          mysql --version
-          sudo apt-get install -y mysql-client-8.0
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uuser -psecret -e "SHOW DATABASES"
 
       - name: Git checkout
         uses: actions/checkout@v2
