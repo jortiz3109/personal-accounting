@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Filters\Eloquent\Filter;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class EloquentFilterProvider extends ServiceProvider
@@ -11,7 +12,7 @@ class EloquentFilterProvider extends ServiceProvider
 
     public function register(): void
     {
-        $this->app->singleton(Filter::class, function ($app, array $params) {
+        $this->app->singleton(Filter::class, function (Application $app, array $params) {
             $filterName = $this->filterName($params['modelName']);
             return new $filterName();
         });
