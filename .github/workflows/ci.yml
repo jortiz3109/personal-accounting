@@ -72,7 +72,7 @@ jobs:
 
       - name: Prepare the application
         run: |
-          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          cp .env.ci .env
           php artisan key:generate
 
       - name: Check code style
