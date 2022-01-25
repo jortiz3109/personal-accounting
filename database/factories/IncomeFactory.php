@@ -16,4 +16,13 @@ class IncomeFactory extends Factory
             'description' => $this->faker->words(3, true),
         ];
     }
+
+    public function disabled(): Factory
+    {
+        return $this->state(function () {
+            return [
+                'disabled_at' => now(),
+            ];
+        });
+    }
 }

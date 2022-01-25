@@ -19,6 +19,7 @@ class Income extends Model
     use HasEloquentFilters;
 
     protected $dates = ['disabled_at'];
+    protected $fillable = ['name', 'description'];
 
     public function name(): string
     {
