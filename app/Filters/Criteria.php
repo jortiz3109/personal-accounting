@@ -13,21 +13,8 @@ class Criteria implements Stringable
         $this->value = $value;
     }
 
-    public function value(): string|array|null
-    {
-        return $this->value;
-    }
-
     public function __toString(): string
     {
-        if (empty($this->value)) {
-            return '';
-        }
-
-        if (is_array($this->value)) {
-            return implode(',', $this->value);
-        }
-
-        return $this->value;
+        return is_array($this->value) ? implode(',', $this->value) : (string) $this->value;
     }
 }
