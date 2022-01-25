@@ -28,7 +28,7 @@ class IncomeController extends Controller
 
     public function store(StoreRequest $request, StoreAction $storeAction): JsonResource
     {
-        $income = $storeAction->for(new Income())->execute($request->validated());
+        $income = $storeAction->execute($request->validated());
         return new IncomeResource($income);
     }
 
