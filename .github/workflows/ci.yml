@@ -11,22 +11,13 @@ jobs:
   laravel-tests:
     runs-on: ubuntu-latest
 
-    env:
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: password
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: redis
-      QUEUE_CONNECTION: redis
-      SESSION_DRIVER: redis
-
     services:
       mysql:
         image: mysql:latest
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: false
-          MYSQL_ROOT_PASSWORD: 'password'
-          MYSQL_DATABASE: 'accounting_test'
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: accounting_test
         ports:
           - 3306/tcp
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
