@@ -35,6 +35,8 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_incomes(array $income, array $params): void
     {
+        $this->withoutExceptionHandling();
+
         Income::factory()->count(3)->create();
         $income = Income::factory()->create($income);
 
@@ -85,7 +87,6 @@ class IndexTest extends TestCase
 
         return [
             'it can filter by name' => ['income' => $income, 'params' => ['filters' => ['name' => 'salary']]],
-            //'it can filter by description' => [ 'income' => $income, 'params' => ['filters' => ['description' => 'payment']]],
         ];
     }
 }
