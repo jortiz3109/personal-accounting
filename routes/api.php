@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\ExpenseController;
 use App\Http\Controllers\Api\Admin\IncomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::as('admin.')->prefix('admin')->group(function () {
     Route::apiResource('incomes', IncomeController::class);
+    Route::apiResource('expenses', ExpenseController::class);
 });
