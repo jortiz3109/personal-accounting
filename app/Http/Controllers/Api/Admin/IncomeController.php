@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api\Admin;
 use App\Actions\Admin\Incomes\IncomeStoreAction;
 use App\Actions\Admin\Incomes\IncomeUpdateAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Admin\Incomes\IndexRequest;
 use App\Http\Requests\Api\Admin\Incomes\StoreRequest;
 use App\Http\Requests\Api\Admin\Incomes\UpdateRequest;
 use App\Http\Resources\IncomeCollection;
 use App\Http\Resources\IncomeResource;
 use App\Models\Income;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Response;
@@ -21,7 +21,7 @@ class IncomeController extends Controller
     /**x
      * @throws BindingResolutionException
      */
-    public function index(Request $request, Income $income): ResourceCollection
+    public function index(IndexRequest $request, Income $income): ResourceCollection
     {
         $incomes = $income
             ->filter($request->get('filters'))
@@ -44,7 +44,7 @@ class IncomeController extends Controller
 
     public function update(UpdateRequest $request, Income $income, IncomeUpdateAction $updateAction): JsonResource
     {
-        $updateAction->for($income)->execute($request->validated())->result();
+        $updateAction->for($income)->execute($request->validated());
         return new IncomeResource($income);
     }
 
