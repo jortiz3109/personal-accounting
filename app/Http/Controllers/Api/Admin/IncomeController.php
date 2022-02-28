@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Actions\Admin\Incomes\StoreAction;
-use App\Actions\Admin\Incomes\UpdateAction;
+use App\Actions\Admin\Incomes\IncomeStoreAction;
+use App\Actions\Admin\Incomes\IncomeUpdateAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Admin\Incomes\StoreRequest;
 use App\Http\Requests\Api\Admin\Incomes\UpdateRequest;
 use App\Http\Resources\IncomeCollection;
 use App\Http\Resources\IncomeResource;
 use App\Models\Income;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -17,18 +18,22 @@ use Illuminate\Http\Response;
 
 class IncomeController extends Controller
 {
-    public function index(Request $request): ResourceCollection
+    /**x
+     * @throws BindingResolutionException
+     */
+    public function index(Request $request, Income $income): ResourceCollection
     {
-        $incomes = Income::filter($request->get('filters'))
+        $incomes = $income
+            ->filter($request->get('filters'))
             ->select(['id', 'name', 'description', 'disabled_at', 'created_at'])
             ->paginate();
 
         return new IncomeCollection($incomes);
     }
 
-    public function store(StoreRequest $request, StoreAction $storeAction): JsonResource
+    public function store(StoreRequest $request, IncomeStoreAction $storeAction): JsonResource
     {
-        $income = $storeAction->for(new Income())->execute($request->validated());
+        $income = $storeAction->execute($request->validated())->result();
         return new IncomeResource($income);
     }
 
@@ -37,9 +42,9 @@ class IncomeController extends Controller
         return new IncomeResource($income);
     }
 
-    public function update(UpdateRequest $request, Income $income, UpdateAction $updateAction): JsonResource
+    public function update(UpdateRequest $request, Income $income, IncomeUpdateAction $updateAction): JsonResource
     {
-        $updateAction->for($income)->execute($request->validated());
+        $updateAction->for($income)->execute($request->validated())->result();
         return new IncomeResource($income);
     }
 
