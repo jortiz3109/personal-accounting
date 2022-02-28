@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateExpensesTable extends Migration
 {
-
     public function up(): void
     {
         Schema::create('expenses', function (Blueprint $table) {
