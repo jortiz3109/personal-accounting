@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Actions\Admin\Incomes;
+namespace App\Actions\Admin\Expenses;
 
-use App\Actions\Admin\Action;
+use App\Actions\UpdateAction;
 use Illuminate\Support\Arr;
 
-class UpdateAction extends Action
+class ExpenseUpdateAction extends UpdateAction
 {
-    public function execute(array $data): bool
+    public function execute(array $data): self
     {
         $this->model->name = $data['name'];
         $this->model->description = $data['description'];
         $this->model->disabled_at = Arr::has($data, 'disabled') ? now() : null;
-        return $this->model->save();
+        $this->model->save();
+
+        return $this;
     }
 }
