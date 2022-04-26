@@ -29,6 +29,10 @@ abstract class Filter implements Contracts\FilterContract
         return $this;
     }
 
-    abstract protected function applicableConditions(): array;
+    protected function applicableConditions(): array
+    {
+        return config('filters.' . $this->model);
+    }
+
     abstract protected function appendCondition(string $condition, $value): void;
 }
