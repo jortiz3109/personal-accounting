@@ -28,7 +28,7 @@ class UpdateTest extends TestCase
     public function test_it_can_disable_a_income(): void
     {
         $income = Income::factory()->create();
-        $data = ['name' => 'Test income', 'description' => 'Test description', 'disabled' => 'on'];
+        $data = ['name' => 'Test income', 'description' => 'Test description', 'disabled' => true];
 
         $response = $this->putJson('/api/admin/incomes/' . $income->getRouteKey(), $data);
         $income->refresh();
@@ -40,7 +40,7 @@ class UpdateTest extends TestCase
     public function test_it_can_enable_a_disabled_income(): void
     {
         $income = Income::factory()->disabled()->create();
-        $data = ['name' => 'Test income', 'description' => 'Test description', 'disabled' => 'on'];
+        $data = ['name' => 'Test income', 'description' => 'Test description', 'disabled' => true];
 
         $response = $this->putJson('/api/admin/incomes/' . $income->getRouteKey(), $data);
         $income->refresh();

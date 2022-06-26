@@ -6,6 +6,6 @@ class UpdateRequest extends StoreRequest
 {
     public function rules(): array
     {
-        return array_merge_recursive(parent::rules(), ['disabled' => ['sometimes', 'accepted']]);
+        return array_merge_recursive(parent::rules(), ['disabled' => ['sometimes', 'boolean']]);
     }
 }
