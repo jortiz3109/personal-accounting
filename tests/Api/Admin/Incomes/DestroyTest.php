@@ -17,6 +17,6 @@ class DestroyTest extends TestCase
 
         $response = $this->deleteJson('/api/admin/incomes/' . $income->getRouteKey());
 
-        $response->assertStatus(Response::HTTP_NO_CONTENT);
+        $response->assertStatus(Response::HTTP_OK);
     }
 }

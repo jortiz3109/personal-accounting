@@ -12,9 +12,10 @@ use App\Http\Resources\IncomeCollection;
 use App\Http\Resources\IncomeResource;
 use App\Models\Income;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class IncomeController extends Controller
 {
@@ -26,15 +27,19 @@ class IncomeController extends Controller
         $incomes = $income
             ->filter($request->get('filters'))
             ->select(['id', 'name', 'description', 'disabled_at', 'created_at'])
+            ->latest()
             ->paginate();
 
         return new IncomeCollection($incomes);
     }
 
-    public function store(StoreRequest $request, IncomeStoreAction $storeAction): JsonResource
+    public function store(StoreRequest $request, IncomeStoreAction $storeAction): JsonResponse
     {
         $income = $storeAction->execute($request->validated())->result();
-        return new IncomeResource($income);
+        return response()->json([
+            'message' => trans('admin.incomes.messages.created'),
+            'data' => (new IncomeResource($income))->toArray($request),
+        ], SymfonyResponse::HTTP_CREATED);
     }
 
     public function show(Income $income): JsonResource
@@ -42,16 +47,16 @@ class IncomeController extends Controller
         return new IncomeResource($income);
     }
 
-    public function update(UpdateRequest $request, Income $income, IncomeUpdateAction $updateAction): JsonResource
+    public function update(UpdateRequest $request, Income $income, IncomeUpdateAction $updateAction): JsonResponse
     {
         $updateAction->for($income)->execute($request->validated());
-        return new IncomeResource($income);
+        return response()->json(['message' => 'Income updated successfully'], SymfonyResponse::HTTP_OK);
     }
 
-    public function destroy(Income $income): Response
+    public function destroy(Income $income): JsonResponse
     {
         $income->delete();
 
-        return response()->noContent();
+        return response()->json(['message' => 'Income deleted successfully'], SymfonyResponse::HTTP_OK);
     }
 }
