@@ -15,7 +15,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class IncomeController extends Controller
 {
@@ -35,8 +35,11 @@ class IncomeController extends Controller
 
     public function store(StoreRequest $request, IncomeStoreAction $storeAction): JsonResponse
     {
-        $storeAction->execute($request->validated())->result();
-        return response()->json(['message' => 'Income created successfully']);
+        $income = $storeAction->execute($request->validated())->result();
+        return response()->json([
+            'message' => trans('admin.incomes.messages.created'),
+            'data' => (new IncomeResource($income))->toArray($request),
+        ], SymfonyResponse::HTTP_CREATED);
     }
 
     public function show(Income $income): JsonResource
@@ -47,13 +50,13 @@ class IncomeController extends Controller
     public function update(UpdateRequest $request, Income $income, IncomeUpdateAction $updateAction): JsonResponse
     {
         $updateAction->for($income)->execute($request->validated());
-        return response()->json(['message' => 'Income updated successfully']);
+        return response()->json(['message' => 'Income updated successfully'], SymfonyResponse::HTTP_OK);
     }
 
     public function destroy(Income $income): JsonResponse
     {
         $income->delete();
 
-        return response()->json(['message' => 'Income deleted successfully']);
+        return response()->json(['message' => 'Income deleted successfully'], SymfonyResponse::HTTP_OK);
     }
 }
