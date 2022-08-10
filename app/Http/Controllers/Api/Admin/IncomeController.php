@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 class IncomeController extends Controller
 {
-    /**x
+    /**
      * @throws BindingResolutionException
      */
     public function index(IndexRequest $request, Income $income): ResourceCollection
@@ -56,7 +56,6 @@ class IncomeController extends Controller
     public function destroy(Income $income): JsonResponse
     {
         $income->delete();
-
         return response()->json(['message' => 'Income deleted successfully'], SymfonyResponse::HTTP_OK);
     }
 }
