@@ -35,7 +35,6 @@ class IndexTest extends TestCase
      */
     public function test_it_can_filter_incomes(array $income, array $params): void
     {
-
         Income::factory()->count(3)->create();
         $income = Income::factory()->create($income);
 
