@@ -14,3 +14,11 @@ export type Pagination = {
     to: number
     items: number
 }
+
+export type SearchFieldType = {
+    type: string,
+    inputName: string,
+    inputId: string,
+    label: string,
+    placeholder: string | null
+}

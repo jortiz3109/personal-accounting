@@ -1,29 +1,18 @@
 import SearchComponent from '../SearchComponent'
-import NameComponent from '../filters/NameComponent'
-import DescriptionComponent from '../filters/DescriptionComponent'
-import CreatedAtComponent from '../filters/CreatedAtComponent'
 export default {
     components: {
-        SearchComponent,
-        NameComponent,
-        DescriptionComponent,
-        CreatedAtComponent
+        SearchComponent
+    },
+    data() {
+        return {
+            fields: [
+                {type: 'text', inputName: 'name', inputId: 'filters.name', placeholder: 'Name', label: 'Name'},
+                {type: 'text', inputName: 'description', inputId: 'filters.description', placeholder: 'Description', label: 'Description'},
+                {type: 'date', inputName: 'created_at', inputId: 'filters.created_at', label: 'Created at', placeholder: 'Created at'}
+            ]
+        }
     },
     template: `
-        <search-component>
-        <template v-slot:inputs="props">
-            <div class="row">
-                <div class="col">
-                    <name-component :params="props.params" />
-                </div>
-                <div class="col">
-                    <description-component :params="props.params" />
-                </div>
-                <div class="col">
-                    <created-at-component :params="props.params" />
-                </div>
-            </div>
-        </template>
-        </search-component>
+        <search-component :fields="fields" />
     `
 }
