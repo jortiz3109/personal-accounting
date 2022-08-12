@@ -16,10 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::as('admin.')->prefix('admin')->group(function () {
     Route::apiResource('incomes', IncomeController::class);
     Route::apiResource('expenses', ExpenseController::class);
