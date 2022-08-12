@@ -28,7 +28,7 @@ class IncomeController extends Controller
             ->filter($request->get('filters'))
             ->select(['id', 'name', 'description', 'disabled_at', 'created_at'])
             ->latest()
-            ->paginate();
+            ->simplePaginate();
 
         return new IncomeCollection($incomes);
     }
