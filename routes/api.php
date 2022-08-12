@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\Admin\ExpenseController;
 use App\Http\Controllers\Api\Admin\IncomeController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
