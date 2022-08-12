@@ -5,11 +5,22 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@popperjs/core": "^2.11.5",
         "@vitejs/plugin-vue": "^3.0.1",
         "axios": "^0.21",
+        "bootstrap": "^5.2.0",
         "laravel-vite-plugin": "^0.5.3",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",
+        "sass": "^1.54.4",
+        "sass-loader": "^13.0.2",
         "vite": "^3.0.5"
+    },
+    "dependencies": {
+        "mitt": "^3.0.0",
+        "pinia": "^2.0.17",
+        "qs": "^6.11.0",
+        "vue": "^3.2.36",
+        "vue-loader": "^17.0.0"
     }
 }

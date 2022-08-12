@@ -1,4 +1,10 @@
-window._ = require('lodash');
+import _ from 'lodash';
+window._ = _;
+
+import * as Popper from '@popperjs/core'
+window.Popper = Popper
+
+import 'bootstrap'
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -6,7 +12,8 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+import axios from "axios";
+window.axios = axios;
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
