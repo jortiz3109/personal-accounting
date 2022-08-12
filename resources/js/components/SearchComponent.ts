@@ -77,6 +77,7 @@ export default {
             this.params = {}
             this.appStore.setSearchParams(this.params)
             this.appStore.setGotoPage(null)
+            this.appStore.setValidationErrors({})
             this.emitter.emit('search:refresh')
         },
         inputType(type: string): Object {
