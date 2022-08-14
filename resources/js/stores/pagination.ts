@@ -20,6 +20,9 @@ export const usePaginationStore = defineStore('pagination', {
             this.perPage = data.per_page
             this.to = data.to
             this.items = data.items
+        },
+        reset: function (): void {
+            this.$reset()
         }
     }
 })

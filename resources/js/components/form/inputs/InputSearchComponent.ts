@@ -1,5 +1,5 @@
 export default {
-    name: 'InputTextComponent',
+    name: 'InputSearchComponent',
     props: {
         values: {
             type: Object,
@@ -29,8 +29,15 @@ export default {
         }
     },
     template: `
-        <label :for="inputId" class="form-label" v-text="label" />
-          <input class="form-control" type="text" :name="inputName" :id="inputId" :class="{'is-invalid': error}" :placeholder="placeholder" v-model="values[inputName]">
-        <div v-if="error" class="invalid-feedback" v-text="error" />
+        <label :for="inputId" class="form-label" v-text="label"/>
+        <input
+            :name="inputName"
+            :id="inputId"
+            :class="{'is-invalid': error}"
+            :placeholder="placeholder"
+            class="form-control"
+            type="search"
+            v-model="values[inputName]">
+        <div v-if="error" class="invalid-feedback" v-text="error"/>
     `
 }
