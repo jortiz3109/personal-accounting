@@ -24,7 +24,7 @@
                     <ul class="dropdown-menu dropdown-menu-lg-end">
                         <li>
                             <a class="dropdown-item" href="{{ route('admin.incomes.index') }}">
-                                {{ trans('admin.incomes.module.title') }}
+                                {{ trans('admin.incomes.titles.index') }}
                             </a>
                         </li>
                     </ul>
