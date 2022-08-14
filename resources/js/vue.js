@@ -2,15 +2,12 @@ import {createApp} from 'vue/dist/vue.esm-bundler'
 import pinia from './store'
 import mitt from 'mitt'
 
-import PaginationComponent from './components/PaginationComponent.ts'
-import IncomesIndexComponent from './components/admin/IncomesIndexComponent.ts'
-import IncomesSearchComponent from './components/admin/IncomesSearchComponent.ts'
+import IncomesDashboardComponent from './components/admin/incomes/DashboardComponent'
+import IncomeCreateComponent from './components/admin/incomes/CreateComponent'
 
 const app = createApp({
     components: {
-        PaginationComponent,
-        IncomesIndexComponent,
-        IncomesSearchComponent
+        IncomesDashboardComponent,
     }
 })
 

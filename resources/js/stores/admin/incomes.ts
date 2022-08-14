@@ -3,6 +3,7 @@ import {Income} from '../../classes/Income'
 
 export const useIncomeStore = defineStore('incomes', {
     state: () => ({
+        page: null,
         incomes: [] as Income[]
     }),
     actions: {

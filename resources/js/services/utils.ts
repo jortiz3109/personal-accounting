@@ -47,7 +47,7 @@ export const makeHeaders = (): Headers => {
 }
 
 export const makeURLSearchParams = (params: Object): URLSearchParams => {
-    Object.assign(params, {page: appStore.gotoPage}, {filters: appStore.searchParams})
+    Object.assign(params, {page: appStore.gotoPage, filters: appStore.searchParams})
     Object.assign(params, JSON.parse(JSON.stringify(params), (key, value) => {
         if (value == '' || value == [] || value == {})
             return null;
