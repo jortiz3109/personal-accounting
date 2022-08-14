@@ -12,4 +12,9 @@ class IncomeController extends Controller
     {
         return view(view: 'admin.incomes.index', data: $viewModel);
     }
+
+    public function create(): View
+    {
+        return view(view: 'admin.incomes.create');
+    }
 }

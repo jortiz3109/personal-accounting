@@ -8,6 +8,7 @@ import IncomeCreateComponent from './components/admin/incomes/CreateComponent'
 const app = createApp({
     components: {
         IncomesDashboardComponent,
+        IncomeCreateComponent
     }
 })
 
