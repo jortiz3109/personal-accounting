@@ -1,94 +1,98 @@
 import {useAppStore} from '../stores/app'
-import InputDateComponent from './form/inputs/InputDateComponent'
-import InputTextComponent from './form/inputs/InputTextComponent'
-import {SearchFieldType} from '../types'
 import * as _ from 'lodash'
+import NameComponent from './common/search/fields/NameComponent'
+import DescriptionComponent from './common/search/fields/DescriptionComponent'
+import CreatedAtComponent from './common/search/fields/CreatedAtComponent'
+import CardComponent from './common/CardComponent'
 
 const SUPPORTED_FIELD_TYPES = [
-    {type: 'date', 'component': InputDateComponent},
-    {type: 'text', 'component': InputTextComponent}
+    {type: 'name', 'component': NameComponent},
+    {type: 'description', 'component': DescriptionComponent},
+    {type: 'created_at', 'component': CreatedAtComponent}
 ]
 
 export default {
+    name: 'SearchComponent',
+    components: {
+        CardComponent
+    },
     setup() {
         const appStore = useAppStore()
         return {appStore}
     },
-    components: {
-        InputTextComponent,
-        InputDateComponent
-    },
+    data: () => ({
+        values: {}
+    }),
     props: {
-        fields: Array<SearchFieldType>
-    },
-    template: `
-        <div class="card">
-        <div class="card-body">
-            <form @submit.prevent="submit">
-                <div class="row">
-                    <div class="col" v-for="field of fields" :key="field.inputId">
-                        <component
-                            :is="inputType(field.type)"
-                            :filters="this.params"
-                            :error="this.getFieldError(field.inputId)"
-                            :input-id="field.inputId"
-                            :input-name="field.inputName"
-                            :label="field.label"
-                            :placeholder="field.placeholder"
-                        />
-                    </div>
-                </div>
-                <hr>
-                <div class="row">
-                    <div class="col">
-                        <button type="submit" class="btn btn-secondary" :class="{'disabled': this.disableButton}">
-                            Search
-                        </button>
-                        <button type="button" class="btn btn-secondary ms-2" :class="{'disabled': this.disableButton}" @click="clear">
-                            Clear
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        </div>
-    `,
-    data() {
-        return {
-            params: {}
+        fields: {
+            required: true,
+            type: Object
+        },
+        searchText: {
+            type: String,
+            default: 'Search'
+        },
+        refreshText: {
+            type: String,
+            default: 'Refresh'
         }
     },
     computed: {
         disableButton: function (): boolean {
-            return Object.keys(this.params).length === 0
+            return Object.keys(this.values).length === 0
         },
-        errors: function(): Array<any> {
+        errors: function (): Array<any> {
             return this.appStore.errors.validation
         }
     },
     methods: {
         submit(): void {
-            this.appStore.setSearchParams(this.params)
-            this.appStore.setGotoPage(null)
-            this.appStore.setValidationErrors({})
+            this.prepareToSearch()
             this.emitter.emit('search')
         },
-        clear(): void {
-            this.params = {}
-            this.appStore.setSearchParams(this.params)
-            this.appStore.setGotoPage(null)
-            this.appStore.setValidationErrors({})
+        refresh(): void {
+            this.values = {}
+            this.prepareToSearch()
             this.emitter.emit('search:refresh')
         },
-        inputType(type: string): Object {
-            try {
-                return SUPPORTED_FIELD_TYPES.find(item => item.type === type).component
-            } catch (e) {
-                return InputTextComponent
-            }
+        prepareToSearch(): void {
+            this.appStore.setSearchParams(this.values)
+            this.appStore.setGotoPage(null)
+            this.appStore.setValidationErrors({})
         },
-        getFieldError(fieldId: string): string|null {
-            return _.first(this.errors[fieldId])
+        componentForInput(type: string): Object {
+            return SUPPORTED_FIELD_TYPES.find(item => item.type === type).component
+        },
+        getFieldError(fieldId: string): string | null {
+            return _.first(this.errors['filters.' + fieldId])
+        },
+        makeFieldProps(field, props): Object {
+            return Object.assign({}, props, {
+                values: this.values,
+                error: this.getFieldError(field),
+                inputId: 'filters.' + field
+            })
         }
-    }
+    },
+    template: `
+        <CardComponent>
+        <template #default>
+            <form @submit.prevent="submit">
+                <div class="row">
+                    <div class="col" v-for="(props, field) in fields" :key="field">
+                        <component :is="this.componentForInput(field)" v-bind="makeFieldProps(field, props)"/>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-secondary" :class="{'disabled': this.disableButton}"
+                                v-text="searchText"/>
+                        <button type="button" class="btn btn-secondary ms-2" @click="refresh" v-text="refreshText"/>
+                    </div>
+                </div>
+            </form>
+        </template>
+        </CardComponent>
+    `
 }
