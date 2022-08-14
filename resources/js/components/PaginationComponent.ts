@@ -2,6 +2,7 @@ import {usePaginationStore} from '../stores/pagination';
 import {useAppStore} from '../stores/app'
 
 export default {
+    name: 'PaginationComponent',
     setup() {
         const appStore = useAppStore()
         const store = usePaginationStore()

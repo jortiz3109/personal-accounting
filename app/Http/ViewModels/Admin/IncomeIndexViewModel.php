@@ -2,19 +2,37 @@
 
 namespace App\Http\ViewModels\Admin;
 
-use Illuminate\Contracts\Support\Arrayable;
+use App\Http\ViewModels\IndexViewModel;
 
-class IncomeIndexViewModel implements Arrayable
+class IncomeIndexViewModel extends IndexViewModel
 {
-    public function toArray(): array
+    public function title(): string
+    {
+        return trans(key: 'admin.incomes.titles.index');
+    }
+
+    public function search(): array
     {
         return [
-            'moduleTitle' => trans(key: 'admin.incomes.module.title'),
-            'actions' => [
-                'create' => [
-                    'route' => route(name: 'admin.incomes.index'),
-                ],
-            ],
+            'name' => ['placeholder' => 'Name', 'label' => 'Name'],
+            'description' => ['placeholder' => 'Description', 'label' => 'Description'],
+            'created_at' => ['label' => 'Created at'],
+        ];
+    }
+
+    public function actions(): array
+    {
+        return [
+            'create' => ['route' => route(name: 'admin.incomes.create')],
+        ];
+    }
+
+    public function listFields(): array
+    {
+        return [
+            'name' => trans(key: 'admin.incomes.fields.name.label'),
+            'description' => trans(key: 'admin.incomes.fields.description.label'),
+            'created_at' => trans(key: 'admin.incomes.fields.created_at.label'),
         ];
     }
 }

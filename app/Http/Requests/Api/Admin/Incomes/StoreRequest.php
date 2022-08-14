@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Api\Admin\Incomes;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -14,7 +15,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'max:50'],
+            'name' => ['required', 'string', 'min:3', 'max:50', Rule::unique('incomes')],
             'description' => ['required', 'string', 'min:10', 'max:255'],
         ];
     }

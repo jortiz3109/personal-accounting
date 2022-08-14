@@ -1,13 +1,13 @@
-import _ from 'lodash'
 export default {
+    name: 'InputDateComponent',
     props: {
         error: {
             type: String,
             required: false
         },
-        filters: {
+        values: {
             type: Object,
-            required: true
+            default: {}
         },
         inputName: {
             type: String,
@@ -21,15 +21,10 @@ export default {
             required: true,
             type: String,
         },
-        placeholder: {
-            required: false,
-            type: String,
-            default: null
-        }
     },
     template: `
         <label :for="inputId" class="form-label" v-text="label" />
-        <input class="form-control" type="date" :name="inputName" :id="inputId" :class="{'is-invalid': error}" v-model="filters[inputName]">
+        <input class="form-control" type="date" :name="inputName" :id="inputId" :class="{'is-invalid': error}" v-model="values[inputName]">
         <div v-if="error" class="invalid-feedback" v-text="error" />
     `
 }

@@ -3,6 +3,7 @@ import {Income} from '../../classes/Income'
 
 export const useIncomeStore = defineStore('incomes', {
     state: () => ({
+        page: null,
         incomes: [] as Income[]
     }),
     actions: {
@@ -14,9 +15,6 @@ export const useIncomeStore = defineStore('incomes', {
         },
         total: function (): number {
             return this.incomes.length
-        },
-        reset: function (): void {
-            this.$reset()
         }
     }
 })

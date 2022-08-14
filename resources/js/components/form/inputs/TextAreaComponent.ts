@@ -1,5 +1,5 @@
 export default {
-    name: 'InputTextComponent',
+    name: 'TextAreaComponent',
     props: {
         values: {
             type: Object,
@@ -26,11 +26,22 @@ export default {
             required: false,
             type: String,
             default: null
+        },
+        rows: {
+          type: Number,
+          default: 8
         }
     },
     template: `
         <label :for="inputId" class="form-label" v-text="label" />
-          <input class="form-control" type="text" :name="inputName" :id="inputId" :class="{'is-invalid': error}" :placeholder="placeholder" v-model="values[inputName]">
-        <div v-if="error" class="invalid-feedback" v-text="error" />
+        <textarea
+            class="form-control"
+            :name="inputName"
+            :id="inputId"
+            :class="{'is-invalid': error}"
+            :placeholder="placeholder"
+            :rows="rows"
+            v-model="values[inputName]"></textarea>
+        <div v-if="error" class="invalid-feedback" v-text="error"/>
     `
 }
