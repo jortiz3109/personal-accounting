@@ -1,4 +1,4 @@
-import { useIncomes } from '../../../composables/incomes'
+import { useIncomeApi } from '../../../services/IncomeApi'
 import {useIncomeStore} from '../../../stores/admin/incomes'
 import TableComponent from '../../html/table/TableComponent'
 
@@ -15,7 +15,7 @@ export default {
     },
     setup() {
         const incomes = useIncomeStore()
-        const {fetchIncomes} = useIncomes()
+        const {fetchIncomes} = useIncomeApi()
         return {fetchIncomes, incomes}
     },
     mounted() {

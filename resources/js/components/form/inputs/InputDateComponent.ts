@@ -7,7 +7,7 @@ export default {
         },
         values: {
             type: Object,
-            required: true
+            default: {}
         },
         inputName: {
             type: String,

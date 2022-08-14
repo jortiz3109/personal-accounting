@@ -58,7 +58,6 @@ export default {
         prepareToSearch(): void {
             this.appStore.setSearchParams(this.values)
             this.appStore.setGotoPage(null)
-            this.appStore.setValidationErrors({})
         },
         componentForInput(type: string): Object {
             return SUPPORTED_FIELD_TYPES.find(item => item.type === type).component

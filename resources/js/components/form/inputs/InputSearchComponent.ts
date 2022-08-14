@@ -3,7 +3,7 @@ export default {
     props: {
         values: {
             type: Object,
-            required: true
+            default: {}
         },
         error: {
             type: String,
