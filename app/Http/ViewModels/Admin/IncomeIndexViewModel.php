@@ -33,7 +33,7 @@ class IncomeIndexViewModel implements Arrayable
     private function actions(): array
     {
         return [
-            'create' => ['route' => route(name: 'admin.incomes.index')],
+            'create' => ['route' => route(name: 'admin.incomes.create')],
         ];
     }
 
