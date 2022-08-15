@@ -15,9 +15,9 @@ class IndexRequest extends FormRequest
     {
         return [
             'filters' => ['sometimes', 'filled', 'array'],
-            'filters.name' => ['string', 'min:3', 'max:50'],
-            'filters.description' => ['string', 'min:3', 'max:50'],
-            'filters.created_at' => ['before_or_equal:today'],
+            'filters.name' => ['bail', 'string', 'min:3', 'max:50'],
+            'filters.description' => ['bail', 'string', 'min:3', 'max:50'],
+            'filters.created_at' => ['bail', 'before_or_equal:today'],
         ];
     }
 }
