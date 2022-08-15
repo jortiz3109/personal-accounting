@@ -96,8 +96,8 @@ export default {
                         v-bind="props"
                         :is="supportedFields[field].component"
                         :errors="this.errors[field]"
-                        :inputName="name"
-                        :inputId="name"
+                        :inputName="field"
+                        :inputId="field"
                         :values="formValues"/>
                 </div>
                 <hr>

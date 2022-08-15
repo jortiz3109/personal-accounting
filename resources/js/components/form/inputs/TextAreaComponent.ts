@@ -1,47 +1,18 @@
+import InputComponent from "./InputComponent";
+
 export default {
     name: 'TextAreaComponent',
+    extends: InputComponent,
     props: {
-        values: {
-            type: Object,
-            default: {}
-        },
-        error: {
-            type: String,
-            required: false,
-            default: null
-        },
-        inputName: {
-            type: String,
-            required: true
-        },
-        inputId: {
-            type: String,
-            required: true
-        },
-        label: {
-            required: true,
-            type: String
-        },
-        placeholder: {
-            required: false,
-            type: String,
-            default: null
-        },
         rows: {
-          type: Number,
-          default: 8
+            type: Number,
+            default: 8
         }
     },
     template: `
-        <label :for="inputId" class="form-label" v-text="label" />
-        <textarea
-            class="form-control"
-            :name="inputName"
-            :id="inputId"
-            :class="{'is-invalid': error}"
-            :placeholder="placeholder"
-            :rows="rows"
-            v-model="values[inputName]"></textarea>
-        <div v-if="error" class="invalid-feedback" v-text="error"/>
+        <InputLabelComponent :label="label" :input-id="inputId"/>
+        <textarea class="form-control" v-bind="$attrs" v-model="values[inputName]" :name="inputName" :id="inputId"
+                  :class="{'is-invalid': errors.length}" :rows="rows"/>
+        <FeedbackComponent v-for="error in errors" css="invalid-feedback" :feedback="error"/>
     `
 }
