@@ -1,15 +1,8 @@
 import {useAppStore} from '../stores/app'
-import * as _ from 'lodash'
-import NameComponent from './common/search/fields/NameComponent'
-import DescriptionComponent from './common/search/fields/DescriptionComponent'
-import CreatedAtComponent from './common/search/fields/CreatedAtComponent'
+import {reactive} from 'vue'
 import CardComponent from './common/CardComponent'
-
-const SUPPORTED_FIELD_TYPES = [
-    {type: 'name', 'component': NameComponent},
-    {type: 'description', 'component': DescriptionComponent},
-    {type: 'created_at', 'component': CreatedAtComponent}
-]
+import InputSearchComponent from "./form/inputs/InputSearchComponent";
+import InputDateComponent from "./form/inputs/InputDateComponent";
 
 export default {
     name: 'SearchComponent',
@@ -18,11 +11,16 @@ export default {
     },
     setup() {
         const appStore = useAppStore()
-        return {appStore}
+        const supportedFields = {
+            name: {component: InputSearchComponent},
+            description: {component: InputSearchComponent},
+            created_at: {component: InputDateComponent}
+        }
+
+        const values = reactive({})
+
+        return {appStore, supportedFields, values}
     },
-    data: () => ({
-        values: {}
-    }),
     props: {
         fields: {
             required: true,
@@ -60,19 +58,6 @@ export default {
             this.appStore.setGotoPage(null)
             this.appStore.setValidationErrors({})
         },
-        componentForInput(type: string): Object {
-            return SUPPORTED_FIELD_TYPES.find(item => item.type === type).component
-        },
-        getFieldError(fieldId: string): string | null {
-            return _.first(this.errors['filters.' + fieldId])
-        },
-        makeFieldProps(field, props): Object {
-            return Object.assign({}, props, {
-                values: this.values,
-                error: this.getFieldError(field),
-                inputId: 'filters.' + field
-            })
-        }
     },
     template: `
         <CardComponent>
@@ -80,14 +65,24 @@ export default {
             <form @submit.prevent="submit">
                 <div class="row">
                     <div class="col" v-for="(props, field) in fields" :key="field">
-                        <component :is="this.componentForInput(field)" v-bind="makeFieldProps(field, props)"/>
+                        <component
+                            v-bind="props"
+                            :is="supportedFields[field].component"
+                            :values="values"
+                            :errors="this.errors['filters.'.concat(field)]"
+                            :inputName="field"
+                            :inputId="'filters.'.concat(field)"
+                        />
                     </div>
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col">
-                        <button type="submit" class="btn btn-secondary" :class="{'disabled': this.disableButton}"
-                                v-text="searchText"/>
+                        <button
+                            type="submit"
+                            class="btn btn-secondary"
+                            :class="{'disabled': this.disableButton}"
+                            v-text="searchText"/>
                         <button type="button" class="btn btn-secondary ms-2" @click="refresh" v-text="refreshText"/>
                     </div>
                 </div>
