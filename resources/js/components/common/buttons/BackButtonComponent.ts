@@ -1,5 +1,5 @@
 export default {
-    name: 'CreateButtonComponent',
+    name: 'BackButtonComponent',
     props: {
         route: {
             type: String,
@@ -7,15 +7,14 @@ export default {
         },
         text: {
             type: String,
-            default: 'Create'
+            default: 'Back'
         },
         css: {
             type: Array,
-            default: ['btn-primary']
-
+            default: ['btn-secondary']
         }
     },
     template: `
-        <a class="btn" :class="css" :href="route" v-text="text" />
+        <a class="btn ms-2" :class="css" :href="route" v-text="text" />
     `
 }

@@ -56,7 +56,6 @@ export default {
         prepareToSearch(): void {
             this.appStore.setSearchParams(this.values)
             this.appStore.setGotoPage(null)
-            this.appStore.setValidationErrors({})
         },
     },
     template: `

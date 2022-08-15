@@ -1,12 +1,14 @@
-import {evaluateResponse, makeHeaders, makeRequest, makeURLSearchParams} from './utils'
+import { useUtils } from './utils'
+const utils = useUtils()
 
-export const get = async (uri: string, params: Object): Promise<any> => {
-    const searchParams = makeURLSearchParams(params)
-    const request = makeRequest(uri, searchParams)
-    const headers = makeHeaders()
+export const useApi = () => ({
+    get: async (uri: string, params: Object): Promise<any> => {
+        const request = utils.makeGetRequest(uri, params)
+        return utils.requestToApi(request)
+    },
 
-    return await fetch(request, {headers: headers})
-        .then((response: Response) => evaluateResponse(response))
-        .then(response => response)
-        .catch()
-}
+    post: async (uri: string, body: Object): Promise<any> => {
+        const request = utils.makePostRequest(uri, body)
+        return utils.requestToApi(request)
+    }
+})

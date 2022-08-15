@@ -15,9 +15,6 @@ export const useIncomeStore = defineStore('incomes', {
         },
         total: function (): number {
             return this.incomes.length
-        },
-        reset: function (): void {
-            this.$reset()
         }
     }
 })

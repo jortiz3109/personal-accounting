@@ -34,7 +34,7 @@ export default {
         },
     },
     template: `
-        <InputLabelComponent label="label" :input-id="inputId" />
+        <InputLabelComponent :label="label" :input-id="inputId" />
         <input class="form-control" :type="type" :name="inputName" :id="inputId" :class="{'is-invalid': errors.length}" v-bind="$attrs" v-model="values[inputName]">
         <FeedbackComponent v-for="error in errors" css="invalid-feedback" :feedback="error" />
     `,
