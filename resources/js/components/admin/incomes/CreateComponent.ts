@@ -8,13 +8,6 @@ import ToolbarComponent from '../../common/ToolbarComponent'
 import {useIncomeApi} from '../../../services/IncomeApi'
 import {useAppStore} from '../../../stores/app'
 import {reactive, ref} from 'vue'
-import * as _ from 'lodash'
-
-const SUPPORTED_FIELD_TYPES = [
-    {type: 'name', 'component': InputTextComponent},
-    {type: 'description', 'component': TextAreaComponent},
-    {type: 'created_at', 'component': inputDateComponent}
-]
 
 export default {
     name: 'IncomeCreateComponent',
@@ -24,8 +17,13 @@ export default {
         const submitting = ref(false)
         const incomeApi = useIncomeApi()
         const appStore = useAppStore()
+        const supportedFields = {
+            name: { component: InputTextComponent},
+            description: { component: TextAreaComponent},
+            created_at: { component: inputDateComponent}
+        }
 
-        return {income, formValues, submitting, incomeApi, appStore}
+        return {income, formValues, submitting, incomeApi, appStore, supportedFields}
     },
     components: {
         CardComponent,
@@ -61,12 +59,6 @@ export default {
         createNewOne(): void {
             Object.keys(this.income).forEach(key => delete this.income[key])
         },
-        getFieldError(fieldId: string): string | null {
-            return _.first(this.errors[fieldId])
-        },
-        getFieldComponent(name: string): Object {
-            return SUPPORTED_FIELD_TYPES.find(field => field.type === name).component
-        }
     },
     computed: {
         errors: function (): Array<any> {
@@ -99,14 +91,14 @@ export default {
                 </div>
             </div>
             <form v-else @submit.prevent="submit">
-                <div class="mb-2" v-for="(props, name) in formFields">
+                <div class="mb-2" v-for="(props, field) in formFields" :key="field">
                     <Component
-                        :is="getFieldComponent(name)"
-                        :error="getFieldError(name)"
+                        v-bind="props"
+                        :is="supportedFields[field].component"
+                        :errors="this.errors[field]"
                         :inputName="name"
                         :inputId="name"
-                        :values="formValues"
-                        v-bind="props"/>
+                        :values="formValues"/>
                 </div>
                 <hr>
                 <div class="d-flex justify-content-end">
