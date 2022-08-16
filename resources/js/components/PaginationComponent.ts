@@ -13,10 +13,10 @@ export default {
         <nav aria-label="Index pagination" class="d-flex justify-items-center align-items-center justify-content-between">
             <ul class="pagination">
                 <li class="page-item">
-                    <button type="button" :class="{'disabled': !hasPreviousPage}" class="page-link" @click.prevent="gotoPage(store.currentPage - 1)">&laquo; Previous</button>
+                    <button type="button" :class="{'disabled': !hasPreviousPage}" class="page-link" @click.prevent="gotoPage(store.current_page - 1)">&laquo; Previous</button>
                 </li>
                 <li class="page-item">
-                    <button type="button" :class="{'disabled': !hasNextPage}" class="page-link" @click.prevent="gotoPage(store.currentPage + 1)">Next &raquo;</button>
+                    <button type="button" :class="{'disabled': !hasNextPage}" class="page-link" @click.prevent="gotoPage(store.current_page + 1)">Next &raquo;</button>
                 </li>
             </ul>
             <div v-if="store.items">
@@ -26,7 +26,7 @@ export default {
                     to
                     <span class="fw-semibold">{{ store.to }}</span>
                     on page
-                    <span class="fw-semibold">{{ store.currentPage }}</span>
+                    <span class="fw-semibold">{{ store.current_page }}</span>
                 </p>
             </div>
         </nav>
@@ -39,10 +39,10 @@ export default {
     },
     computed: {
         hasNextPage: function() {
-            return this.store.items && this.store.items === this.store.perPage
+            return this.store.items && this.store.items === this.store.per_page
         },
         hasPreviousPage: function() {
-            return this.store.items && this.store.currentPage > 1
+            return this.store.items && this.store.current_page > 1
         }
     }
 

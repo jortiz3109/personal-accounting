@@ -2,12 +2,12 @@ import {createApp} from 'vue/dist/vue.esm-bundler'
 import pinia from './store'
 import mitt from 'mitt'
 
-import IncomesDashboardComponent from './components/admin/incomes/DashboardComponent'
-import IncomeCreateComponent from './components/admin/incomes/CreateComponent'
+import IncomeDashboardComponent from './components/admin/incomes/IncomeDashboardComponent'
+import IncomeCreateComponent from './components/admin/incomes/IncomeCreateComponent'
 
 const app = createApp({
     components: {
-        IncomesDashboardComponent,
+        IncomeDashboardComponent,
         IncomeCreateComponent
     }
 })

@@ -12,9 +12,9 @@ export default {
     setup() {
         const appStore = useAppStore()
         const supportedFields = {
-            name: {component: InputSearchComponent},
-            description: {component: InputSearchComponent},
-            created_at: {component: InputDateComponent}
+            name: InputSearchComponent,
+            description: InputSearchComponent,
+            created_at: InputDateComponent
         }
 
         const values = reactive({})
@@ -66,7 +66,7 @@ export default {
                     <div class="col" v-for="(props, field) in fields" :key="field">
                         <component
                             v-bind="props"
-                            :is="supportedFields[field].component"
+                            :is="supportedFields[field]"
                             :values="values"
                             :errors="this.errors['filters.'.concat(field)]"
                             :inputName="field"

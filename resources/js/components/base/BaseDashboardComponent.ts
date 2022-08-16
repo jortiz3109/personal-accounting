@@ -1,15 +1,13 @@
-import IncomesListComponent from './ListComponent'
-import CardComponent from '../../common/CardComponent'
-import CardHeaderComponent from '../../common/CardHeaderComponent'
-import SearchComponent from '../../SearchComponent'
-import PaginationComponent from '../../PaginationComponent'
-import ToolbarComponent from '../../common/ToolbarComponent'
+import SearchComponent from "../SearchComponent";
+import CardComponent from "../common/CardComponent";
+import CardHeaderComponent from "../common/CardHeaderComponent";
+import ToolbarComponent from "../common/ToolbarComponent";
+import PaginationComponent from "../PaginationComponent";
 
 export default {
-    name: 'IncomeDashboardComponent',
+    name: 'BaseDashboardComponent',
     components: {
         SearchComponent,
-        IncomesListComponent,
         CardComponent,
         CardHeaderComponent,
         ToolbarComponent,
@@ -41,7 +39,7 @@ export default {
         </template>
         <template #default>
             <ToolbarComponent :items="actions"/>
-            <IncomesListComponent :fields="fields"/>
+            <slot></slot>
         </template>
         </CardComponent>
         <PaginationComponent/>

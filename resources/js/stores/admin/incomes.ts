@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import {Income} from '../../classes/Income'
+import Income from '../../models/Income'
 
 export const useIncomeStore = defineStore('incomes', {
     state: () => ({
@@ -7,14 +7,17 @@ export const useIncomeStore = defineStore('incomes', {
         incomes: [] as Income[]
     }),
     actions: {
-        all: function(): Income[] {
+        all(): Income[] {
             return this.incomes
         },
-        add: function(income: Income) {
+        add(income: Income): void {
             this.incomes.push(income)
         },
-        total: function (): number {
+        total(): number {
             return this.incomes.length
+        },
+        reset: function (): void {
+            this.$reset()
         }
     }
 })

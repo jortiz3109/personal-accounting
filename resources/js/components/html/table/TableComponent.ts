@@ -1,16 +1,21 @@
-import NameComponent from '../../common/tables/td/NameComponent'
 import TableColumnComponent from '../../html/table/TableColumnComponent'
+import NameComponent from '../../common/tables/td/NameComponent'
 import CreatedAtComponent from '../../common/tables/td/CreatedAtComponent'
 import DescriptionComponent from '../../common/tables/td/DescriptionComponent'
-
-const SUPPORTED_CELL_TYPES = [
-    {type: 'name', component : NameComponent},
-    {type: 'created_at', component : CreatedAtComponent},
-    {type: 'description', component: DescriptionComponent}
-]
+import {shallowRef} from 'vue'
 
 export default {
     name: 'TableComponent',
+    data: () => ({
+        supportedFields: {
+            name: shallowRef(NameComponent),
+            created_at: shallowRef(CreatedAtComponent),
+            description: shallowRef(DescriptionComponent),
+        }
+    }),
+    components: {
+        TableColumnComponent
+    },
     props: {
         fields: {
             type: Object,
@@ -19,37 +24,32 @@ export default {
         items: {
             type: Array,
             required: true
-        }
-    },
-    methods: {
-        cellComponentFor: (type: string) => {
-            try {
-                return SUPPORTED_CELL_TYPES.find(cell => cell.type === type).component
-            } catch (e) {
-                return TableColumnComponent
-            }
+        },
+        itemComponents: {
+            type: Object,
+            default: {}
         }
     },
     computed: {
-        fieldProperties: function () {
+        itemProperties: function () {
             return Object.keys(this.fields)
         },
-        fieldTranslations: function () {
+        headings: function () {
             return Object.values(this.fields)
         }
     },
     template: `
         <div class="table-responsive">
         <table class="table table-condensed table-hover">
-            <thead>
+            <thead v-if="headings.length">
             <tr>
-                <th v-for="translation of fieldTranslations">{{ translation }}</th>
+                <th v-for="heading in headings">{{ heading }}</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(item, id) in items" :key="id">
-                <Component v-for="property in fieldProperties" :content="item[property]" :is="cellComponentFor(property)" />
+                <Component :is="supportedFields[property]" v-for="property in itemProperties" :content="item[property]"/>
                 <td></td>
             </tr>
             </tbody>

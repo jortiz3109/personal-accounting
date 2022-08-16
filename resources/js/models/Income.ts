@@ -1,18 +1,18 @@
-import type { IncomeInterface } from "../types"
+import type { IncomeInterface } from '../types'
+import Model from './Model'
 
-export class Income implements IncomeInterface {
+export default class Income extends Model implements IncomeInterface {
     id: number
     name: string
     description: string
     is_disabled: boolean
-    created_at: Date
 
-    constructor(id: number, name: string, description: string, is_disabled: boolean, created_at: Date) {
+    constructor(id: number, name: string, description: string, is_disabled: boolean, created_at: string) {
+        super(created_at);
         this.id = id
         this.name = name
         this.description = description
         this.is_disabled = is_disabled
-        this.created_at = created_at
     }
 
     public isDisabled(): boolean {
@@ -25,7 +25,7 @@ export class Income implements IncomeInterface {
 
     static map(data): Income[] {
         return data.map(function (income) {
-            return new Income(income.id, income.name, income.description, income.is_disabled, new Date(income.created_at))
+            return new Income(income.id, income.name, income.description, income.is_disabled, income.created_at)
         })
     }
 }
