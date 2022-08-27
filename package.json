@@ -5,6 +5,7 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@intlify/vite-plugin-vue-i18n": "^6.0.1",
         "@popperjs/core": "^2.11.5",
         "@vitejs/plugin-vue": "^3.0.1",
         "bootstrap": "^5.2.0",
@@ -13,13 +14,14 @@
         "postcss": "^8.1.14",
         "sass": "^1.54.4",
         "sass-loader": "^13.0.2",
-        "vite": "^3.0.5"
+        "vite": "^3.0.5",
+        "vue-loader": "^17.0.0"
     },
     "dependencies": {
         "mitt": "^3.0.0",
         "pinia": "^2.0.17",
         "qs": "^6.11.0",
         "vue": "^3.2.36",
-        "vue-loader": "^17.0.0"
+        "vue-i18n": "^9.2.2"
     }
 }

@@ -1,0 +1,51 @@
+{
+    "admin": {
+        "incomes": {
+            "titles": {
+                "create": "Create a new income",
+                "index": "Index of incomes"
+            },
+            "actions": {
+                "create": "Create income"
+            },
+            "fields": {
+                "name": {
+                    "label": "Name",
+                    "placeholder": ""
+                },
+                "description": {
+                    "label": "Description",
+                    "placeholder": ""
+                },
+                "created_at": {
+                    "label": "Created at",
+                    "placeholder": ""
+                }
+            }
+        }
+    },
+    "search": {
+        "actions": {
+            "search": "Search",
+            "refresh": "Refresh"
+        },
+        "fields": {
+            "name": "Name",
+            "description": "Description",
+            "created_at": "Created at"
+        }
+    },
+    "pagination": {
+        "next": "Next",
+        "back": "Back"
+    },
+    "messages": {
+        "empty-results": "No results were found",
+        "loading": "Loading"
+    },
+    "actions": {
+        "new": "Create new"
+    },
+    "submitting": "Submitting",
+    "save": "Save"
+}

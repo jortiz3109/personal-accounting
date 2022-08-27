@@ -15,7 +15,7 @@ const mapIncomes = (data: Array<{ id: number, name: string, description: string,
 }
 
 export const useIncomeApi = () => ({
-    fetch: (): Promise<void | Income[]> => {
+    get: (): Promise<void | Income[]> => {
         return api.get(path, {})
             .then(response => {
                 store.$reset()
